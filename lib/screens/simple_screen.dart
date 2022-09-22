@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
+import 'package:systemglobalvc/screens/qr_scan/qrscan_screen.dart';
 
 import '../constant.dart';
 import '../widgets/sidebarmenu_widget.dart';
@@ -25,9 +26,23 @@ class _SimpleScreenState extends State<SimpleScreen> {
         elevation: 0,
       ),
       sideBar: _sideBar.sidebarMenus(context, SimpleScreen.id),
-      body: const Center(
-        child: Text("Tela em Branco"),
+      body:  Center(
+        child: Column(
+          children: [
+            Text("Tela em Branco"),
+            SizedBox(height: 100),
+            TextButton.icon(onPressed: (){
+              Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => QrScanScreen()),
+        );
+            }, icon: Icon(Icons.qr_code), label: Text("Ir para o QR Code"))
+          ],
+        ),
+        
       ),
+      
     );
   }
 }

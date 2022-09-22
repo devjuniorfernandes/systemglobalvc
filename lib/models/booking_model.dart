@@ -3,13 +3,14 @@ import 'user_model.dart';
 
 class BookingModel {
   int? id;
-  User? user;
   String? date;
+  int? userid;
   String? passport_number;
   String? phone_number;
   String? subject;
   String? description;
   int? status;
+  User? user;
 
   BookingModel(
       {this.id,
@@ -20,11 +21,13 @@ class BookingModel {
       this.subject,
       this.description,
       this.status,
+      this.userid,
     });
 
   factory BookingModel.fromJson(Map<String, dynamic> json) {
     return BookingModel(
       id: json['id'],
+      userid: json['user_id'],
       date: json['date'],
       user: User(
         id: json['user']['id'],

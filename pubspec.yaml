@@ -29,6 +29,7 @@ dependencies:
   pdf: ^3.8.1
   advance_pdf_viewer: any
   share_extend: ^1.1.9
+  flutter_barcode_scanner: ^2.0.0
 
 dev_dependencies:
   flutter_test:

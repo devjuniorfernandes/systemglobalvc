@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:systemglobalvc/screens/qr_scan/qrscan_screen.dart';
 
 import 'screens/auth/login_screen.dart';
 import 'screens/auth/logout_screen.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         HomeScreen.id: (context) => const HomeScreen(),
         ViewBooking.id: (context) => const ViewBooking(bookID: '',),
         //
+        QrScanScreen.id: (context) =>  QrScanScreen(),
         SimpleScreen.id: (context) => const SimpleScreen(),
       },
     );

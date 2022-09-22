@@ -10,7 +10,6 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 
-
 import '../../../../constant.dart';
 import '../../../../services/auth_service.dart';
 import '../../../../services/doc_data_services.dart';
@@ -111,10 +110,9 @@ class _BookingPDFState extends State<BookingPDF> {
                           ]),
                       pw.Spacer(),
                       pw.BarcodeWidget(
-                        data:
-                            "AG000${bookingId} - DATA: $date - NOME DO UTLIZADOR:${nameuser} - PASSPORT: $passportNumber",
-                        height: 75,
-                        width: 75,
+                        data: bookingId.toString(),
+                        height: 100,
+                        width: 100,
                         drawText: false,
                         barcode: pw.Barcode.qrCode(),
                       ),

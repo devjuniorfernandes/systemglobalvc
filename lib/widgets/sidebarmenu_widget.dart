@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
+import 'package:systemglobalvc/screens/simple_screen.dart';
 
 import '../constant.dart';
 import '../screens/auth/logout_screen.dart';
-import '../screens/clinical/create_historic_screen.dart';
 import '../screens/home_screen.dart';
 
 class SideBarWidget {
@@ -17,7 +17,7 @@ class SideBarWidget {
     ),
     AdminMenuItem(
       title: 'Outro Menu',
-      route: CreateHistoricScreen.id,
+      route: SimpleScreen.id,
       icon: Icons.history,
     ),
     AdminMenuItem(

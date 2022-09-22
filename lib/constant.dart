@@ -1,7 +1,7 @@
 // ----- STRINGS ------
 import 'package:flutter/material.dart';
 
-const baseURL = 'https://eduibashore.com/api';
+const baseURL = 'http://192.168.0.141:8000/api';
 const loginURL = '$baseURL/login';
 const registerURL = '$baseURL/register';
 const registeradmURL = '$baseURL/registeradm';

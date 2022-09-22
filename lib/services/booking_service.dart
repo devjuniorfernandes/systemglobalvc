@@ -9,17 +9,15 @@ import '../models/booking_model.dart';
 import 'auth_service.dart';
 import 'package:http/http.dart' as http;
 
-
 // get all Bookings
 Future<ApiResponse> getBookings() async {
   ApiResponse apiResponse = ApiResponse();
   try {
     String token = await getToken();
-    final response = await http.get(Uri.parse("$baseURL/booking"),
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token'
-        });
+    final response = await http.get(Uri.parse("$baseURL/booking"), headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token'
+    });
 
     switch (response.statusCode) {
       case 200:
@@ -58,8 +56,7 @@ Future<ApiResponse> createBooking(
 
   try {
     String token = await getToken();
-    final response =
-        await http.post(Uri.parse("$baseURL/booking"), headers: {
+    final response = await http.post(Uri.parse("$baseURL/booking"), headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token'
     }, body: {
@@ -106,13 +103,10 @@ Future<ApiResponse> getBook(String bookID) async {
           'Accept': 'application/json',
           'Authorization': 'Bearer $token'
         });
-
     switch (response.statusCode) {
       case 200:
-        apiResponse.data = jsonDecode(response.body)['message'];
-        break;
-      case 403:
-        apiResponse.error = jsonDecode(response.body)['message'];
+        print(response.body);
+        apiResponse.data = BookingModel.fromJson(jsonDecode(response.body)['booking']);
         break;
       case 401:
         apiResponse.error = unauthorized;
@@ -122,6 +116,7 @@ Future<ApiResponse> getBook(String bookID) async {
         break;
     }
   } catch (e) {
+    print(e);
     apiResponse.error = serverError;
   }
   return apiResponse;

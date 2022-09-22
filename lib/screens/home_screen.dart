@@ -3,6 +3,7 @@ import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:systemglobalvc/models/booking_model.dart';
+import 'package:systemglobalvc/screens/booking/view_booking.dart';
 import '../constant.dart';
 import '../models/api_response.dart';
 import '../services/auth_service.dart';
@@ -21,7 +22,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   List<dynamic> _bookingList = [];
   int userId = 0;
   bool _loading = true;
@@ -49,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  
   void _getDocBooking(BookingModel booking) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.setInt('bookingID', booking.id ?? 0);
@@ -74,11 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    
     SideBarWidget sideBar = SideBarWidget();
 
     return AdminScaffold(
@@ -117,9 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             50,
                           ),
                         ),
-                        onPressed: () {
-                          
-                        },
+                        onPressed: () {},
                         child: const Text("NOVO AGENDAMENTO"),
                       ),
                     ],
@@ -132,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       BookingModel booking = _bookingList[index];
                       return ListTile(
-                          onTap: () {
+                        onTap: () {
                           _getDocBooking(booking);
                         },
                         leading: booking.status == 1
@@ -159,9 +153,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         trailing: IconButton(
-                          icon: const Icon(Icons.edit),
+                          icon: const Icon(Icons.view_agenda),
                           onPressed: () {
-      
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ViewBooking(
+                                      bookID: booking.id.toString())),
+                            );
                           },
                         ),
                       );
