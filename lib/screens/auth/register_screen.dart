@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../models/api_response.dart';
-import '../../screens/home_screen.dart';
 
 import '../../constant.dart';
 import '../../models/auth_model.dart';
 import '../../services/auth_service.dart';
+import '../home_screen.dart';
 import 'login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -27,10 +27,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool loading = false;
 
   void _registerUser() async {
-    ApiResponse response =
-        await register(txtName.text, txtEmail.text, txtPassword.text);
+    ApiResponse response = await register(txtName.text, txtEmail.text, txtPassword.text);
     if (response.error == null) {
-      _saveAndRedirectToHome(response.data as Auth);
+      _saveAndRedirecToHome(response.data as Auth);
+      setState(() {
+        loading = !loading;
+      });
+
     } else {
       setState(() {
         loading = !loading;
@@ -40,15 +43,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  // Save and redirect to home
-  void _saveAndRedirectToHome(Auth auth) async {
+  void _saveAndRedirecToHome(Auth auth) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.setString('token', auth.token ?? '');
     await pref.setInt('userId', auth.id ?? 0);
+    await pref.setInt('level', auth.level ?? 0);
+    await pref.setString('name', auth.name ?? '');
+    await pref.setString('image', auth.image ?? '');
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const HomeScreen()),
         (route) => false);
   }
+  
 
   @override
   Widget build(BuildContext context) {

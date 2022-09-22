@@ -45,12 +45,11 @@ Future<ApiResponse> getBookings() async {
 // Future<ApiResponse> createPost(String body, String? image) async {
 
 Future<ApiResponse> createBooking(
-  String nameController,
-  String addressController,
-  String descriptionController,
-  String idadeController,
-  String numberPhoneController,
+  String dateController,
+  String passportController,
+  String numberController,
   String subjectController,
+  String descriptionController,
 ) async {
   ApiResponse apiResponse = ApiResponse();
 
@@ -60,14 +59,11 @@ Future<ApiResponse> createBooking(
       'Accept': 'application/json',
       'Authorization': 'Bearer $token'
     }, body: {
-      'name_patients': nameController,
-      'phone_patients': numberPhoneController,
-      'address_patients': addressController,
-      'age_patients': idadeController,
-      'subject': subjectController,
+      'date': dateController,
+      'passport_number': passportController,
+      'phone_number': numberController,
       'description': descriptionController,
-      'urgency': "1",
-      'status': "1",
+      'subject': subjectController,
     });
 
     // here if the image is null we just send the body, if not null we send the image too

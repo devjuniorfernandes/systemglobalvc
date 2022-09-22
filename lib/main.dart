@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:systemglobalvc/screens/booking/booking_create_screen.dart';
 import 'package:systemglobalvc/screens/qr_scan/qrscan_screen.dart';
 
 import 'screens/auth/login_screen.dart';
@@ -21,6 +23,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', 'US'),
+        Locale('pt', 'BR'),
+      ],
 
       debugShowCheckedModeBanner: false,
       title: 'Sistema VS Global',
@@ -34,6 +45,7 @@ class MyApp extends StatelessWidget {
         LogoutScreen.id: (context) => const LogoutScreen(),
         RegisterScreen.id: (context) => const RegisterScreen(),
         HomeScreen.id: (context) => const HomeScreen(),
+        BookingCreateScreen.id: (context) => const BookingCreateScreen(),
         ViewBooking.id: (context) => const ViewBooking(bookID: '',),
         //
         QrScanScreen.id: (context) =>  QrScanScreen(),

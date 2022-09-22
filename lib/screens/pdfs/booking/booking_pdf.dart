@@ -70,40 +70,46 @@ class _BookingPDFState extends State<BookingPDF> {
               children: [
                 pw.Padding(padding: const pw.EdgeInsets.only(top: 20)),
                 pw.Center(
-                  child: pw.Text("AGENDAMENTO DE PEDIDO DE VISTO",
+                  child: pw.Text("COMPROVATIVO DE AGENDAMENTO",
                       style: pw.TextStyle(
                         fontSize: 18,
                         fontWeight: pw.FontWeight.bold,
                       )),
                 ),
-                pw.SizedBox(height: 20),
-                pw.Row(
+                pw.SizedBox(height: 60),
+                pw.Padding(
+                  padding: const pw.EdgeInsets.all(10),
+                  child: pw.Row(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     mainAxisAlignment: pw.MainAxisAlignment.start,
                     children: [
                       pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
-                            pw.Text('RESPONSÁVEL : '),
+                            pw.Text('NOME: '),
+                            pw.SizedBox(height: 10),
                             pw.Text('E-MAIL: '),
-                            pw.Text('ASSUNTO : '),
+                            pw.SizedBox(height: 10),
+                            pw.Text('TELEFONE: '),
                           ]),
                       pw.SizedBox(width: 20),
                       pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
                             pw.Text(
+                              nameuser,
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                            ),
+                            pw.SizedBox(height: 10),
+                            pw.Text(
                               emailuser,
                               style:
                                   pw.TextStyle(fontWeight: pw.FontWeight.bold),
                             ),
+                            pw.SizedBox(height: 10),
                             pw.Text(
-                              date,
-                              style:
-                                  pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                            ),
-                            pw.Text(
-                              subject,
+                              phoneNumer,
                               style:
                                   pw.TextStyle(fontWeight: pw.FontWeight.bold),
                             ),
@@ -116,23 +122,59 @@ class _BookingPDFState extends State<BookingPDF> {
                         drawText: false,
                         barcode: pw.Barcode.qrCode(),
                       ),
-                    ]),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          pw.SizedBox(height: 20),
+          pw.Padding(
+            padding: const pw.EdgeInsets.all(8.0),
+            child: pw.Table(
+              border: pw.TableBorder.all(width: 2.0),
+              children: [
+                pw.TableRow(children: [
+                  pw.Padding(
+                      padding: const pw.EdgeInsets.all(8.0),
+                      child: pw.Text("Nº PASSAPORTE")),
+                  pw.Padding(
+                      padding: const pw.EdgeInsets.all(8.0),
+                      child: pw.Text("ACTO MIGRATÓRIO")),
+                  pw.Padding(
+                      padding: const pw.EdgeInsets.all(8.0),
+                      child: pw.Text("DATA / AGENDAMENTO")),
+                  pw.Padding(
+                      padding: const pw.EdgeInsets.all(8.0),
+                      child: pw.Text("TAXA A PAGAR")),
+                ]),
+                pw.TableRow(children: [
+                  pw.Padding(
+                      padding: const pw.EdgeInsets.all(8.0),
+                      child: pw.Text(passportNumber,
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                  pw.Padding(
+                      padding: const pw.EdgeInsets.all(8.0),
+                      child: pw.Text(subject,
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                  pw.Padding(
+                      padding: const pw.EdgeInsets.all(8.0),
+                      child: pw.Text(date,
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                  pw.Padding(
+                      padding: const pw.EdgeInsets.all(8.0),
+                      child: pw.Text("15.000,00",
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                ]),
               ],
             ),
           ),
           pw.SizedBox(height: 20),
           pw.Paragraph(
-            margin: const pw.EdgeInsets.only(top: 10),
+            margin: const pw.EdgeInsets.all(10),
             text:
-                "Sr.(a) ${nameuser}, o seu o seu agendamento está marcado para a data ${date}, portador do Passaport nº ${passportNumber}, ${description}.",
-            style: const pw.TextStyle(fontSize: 16),
-          ),
-          pw.SizedBox(height: 20),
-          pw.Paragraph(
-            margin: const pw.EdgeInsets.only(top: 10),
-            text:
-                "Em caso de duvida conveniência entraremos em contacto para o terminal telefone: ${phoneNumer}",
-            style: const pw.TextStyle(fontSize: 16),
+                "Obs.: Pedimos aos utentes o escrupuloso cumprimento do horário, comparecendo 15 minutos antes da hora agendada para acautelar eventuais constrangimentos à entrada. Deve levar consigo toda documentação, bem como o formulário digital devidamente preenchido.",
+            style: const pw.TextStyle(fontSize: 11),
           ),
           pw.SizedBox(height: 20),
         ],

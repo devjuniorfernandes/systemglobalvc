@@ -55,6 +55,7 @@ Row kLoginRegisterHint(String text, String label, Function onTap) {
 
 const kColorPrimary = Color(0xFF3860a3);
 const kColorRed = Color.fromARGB(255, 243, 71, 48);
+const kColorRedLight = Color.fromARGB(255, 255, 149, 135);
 const kColorPrimaryLight = Color(0xFF93AEDD);
 const kColorWhite = Color(0xFFFFFFFF);
 

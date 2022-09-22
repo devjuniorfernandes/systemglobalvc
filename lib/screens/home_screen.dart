@@ -3,6 +3,7 @@ import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:systemglobalvc/models/booking_model.dart';
+import 'package:systemglobalvc/screens/booking/booking_create_screen.dart';
 import 'package:systemglobalvc/screens/booking/view_booking.dart';
 import '../constant.dart';
 import '../models/api_response.dart';
@@ -113,8 +114,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             50,
                           ),
                         ),
-                        onPressed: () {},
-                        child: const Text("NOVO AGENDAMENTO"),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const BookingCreateScreen(),
+                            ),
+                          );
+                        },
+                        child: const Text("NOVO"),
                       ),
                     ],
                   ),
@@ -142,14 +150,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 45,
                                 color: Colors.grey[400],
                               ),
-                        title: Text('${booking.subject}'),
+                        title: Text('REF00${booking.id}'),
                         subtitle: Row(
                           children: [
-                            Text('REF00${booking.id}'),
-                            const SizedBox(width: 20),
                             Text('${booking.date}'),
-                            const SizedBox(width: 20),
-                            Text('${booking.user!.name}'),
                           ],
                         ),
                         trailing: IconButton(

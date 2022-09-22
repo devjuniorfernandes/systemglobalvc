@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../constant.dart';
 import '../models/api_response.dart';
+import '../models/auth_model.dart';
 import '../models/user_model.dart';
 import 'auth_service.dart';
 
@@ -23,6 +24,43 @@ Future<ApiResponse> getUsers() async {
         break;
       case 401:
         apiResponse.error = unauthorized;
+        break;
+      default:
+        apiResponse.error = somethingWentWrong;
+        break;
+    }
+  } catch (e) {
+    apiResponse.error = serverError;
+  }
+  return apiResponse;
+}
+
+// Register
+Future<ApiResponse> register(
+  String name,
+  String email,
+  String password,
+) async {
+  ApiResponse apiResponse = ApiResponse();
+  try {
+    String token = await getToken();
+    final response = await http.post(Uri.parse(registerURL), headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    }, body: {
+      'name': name,
+      'email': email,
+      'password': password,
+      'password_confirmation': password
+    });
+
+    switch (response.statusCode) {
+      case 200:
+        apiResponse.data = Auth.fromJson(jsonDecode(response.body));
+        break;
+      case 422:
+        final errors = jsonDecode(response.body)['errors'];
+        apiResponse.error = errors[errors.keys.elementAt(0)][0];
         break;
       default:
         apiResponse.error = somethingWentWrong;
@@ -57,7 +95,7 @@ Future<ApiResponse> registeradm(
 
     switch (response.statusCode) {
       case 200:
-        apiResponse.data = User.fromJson(jsonDecode(response.body));
+        apiResponse.data = Auth.fromJson(jsonDecode(response.body));
         break;
       case 422:
         final errors = jsonDecode(response.body)['errors'];

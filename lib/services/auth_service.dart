@@ -54,7 +54,8 @@ Future<ApiResponse> register(String name, String email, String password) async {
 
     switch (response.statusCode) {
       case 200:
-        apiResponse.data = User.fromJson(jsonDecode(response.body));
+        apiResponse.data = User.fromJson(jsonDecode(response.body)['user']);
+        apiResponse.error =  jsonDecode(response.body)['message'];
         break;
       case 422:
         final errors = jsonDecode(response.body)['errors'];
