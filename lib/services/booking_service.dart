@@ -101,8 +101,8 @@ Future<ApiResponse> getBook(String bookID) async {
         });
     switch (response.statusCode) {
       case 200:
-        print(response.body);
-        apiResponse.data = BookingModel.fromJson(jsonDecode(response.body)['booking']);
+        apiResponse.data =
+            BookingModel.fromJson(jsonDecode(response.body)['booking']);
         break;
       case 401:
         apiResponse.error = unauthorized;
@@ -118,37 +118,30 @@ Future<ApiResponse> getBook(String bookID) async {
   return apiResponse;
 }
 
-// Edit post
-Future<ApiResponse> editBooking(
-  int id,
-  String nameController,
-  String addressController,
-  String descriptionController,
-  String idadeController,
-  String numberPhoneController,
-  String subjectController,
+Future<ApiResponse> confirmBooking(
+  int bookID,
 ) async {
   ApiResponse apiResponse = ApiResponse();
+
   try {
     String token = await getToken();
     final response =
-        await http.put(Uri.parse('$baseURL/booking/$id'), headers: {
+        await http.put(Uri.parse('$baseURL/booking/$bookID'), headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token'
     }, body: {
-      'name_patients': nameController,
-      'phone_patients': numberPhoneController,
-      'address_patients': addressController,
-      'age_patients': idadeController,
-      'subject': subjectController,
-      'description': descriptionController,
-      'urgency': "1",
-      'status': "1",
+      'status': 1,
     });
+
+    // here if the image is null we just send the body, if not null we send the image too
 
     switch (response.statusCode) {
       case 200:
         apiResponse.data = jsonDecode(response.body)['message'];
+        break;
+      case 422:
+        final errors = jsonDecode(response.body)['errors'];
+        apiResponse.error = errors[errors.keys.elementAt(0)][0];
         break;
       case 403:
         apiResponse.error = jsonDecode(response.body)['message'];
@@ -165,6 +158,79 @@ Future<ApiResponse> editBooking(
   }
   return apiResponse;
 }
+
+Future<ApiResponse> notConfirmBooking(
+  int bookID,
+) async {
+  ApiResponse apiResponse = ApiResponse();
+
+  try {
+    String token = await getToken();
+    final response =
+        await http.put(Uri.parse('$baseURL/booking/$bookID'), headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token'
+    }, body: {
+      'status': 0,
+    });
+
+    // here if the image is null we just send the body, if not null we send the image too
+
+    switch (response.statusCode) {
+      case 200:
+        apiResponse.data = jsonDecode(response.body)['message'];
+        break;
+      case 422:
+        final errors = jsonDecode(response.body)['errors'];
+        apiResponse.error = errors[errors.keys.elementAt(0)][0];
+        break;
+      case 403:
+        apiResponse.error = jsonDecode(response.body)['message'];
+        break;
+      case 401:
+        apiResponse.error = unauthorized;
+        break;
+      default:
+        apiResponse.error = somethingWentWrong;
+        break;
+    }
+  } catch (e) {
+    apiResponse.error = serverError;
+  }
+  return apiResponse;
+}
+
+// Getting post
+Future<ApiResponse> deleteBook(String bookID) async {
+  ApiResponse apiResponse = ApiResponse();
+  try {
+    String token = await getToken();
+    final response = await http.delete(Uri.parse('$baseURL/booking/$bookID'),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token'
+        });
+    switch (response.statusCode) {
+      case 200:
+        apiResponse.data = jsonDecode(response.body)['message'];
+        break;
+      case 403:
+        apiResponse.error = jsonDecode(response.body)['message'];
+        break;
+      case 401:
+        apiResponse.error = unauthorized;
+        break;
+      default:
+        apiResponse.error = somethingWentWrong;
+        break;
+    }
+  } catch (e) {
+    print(e);
+    apiResponse.error = serverError;
+  }
+  return apiResponse;
+}
+
 
 // Delete post
 Future<ApiResponse> deleteBookings(int id) async {

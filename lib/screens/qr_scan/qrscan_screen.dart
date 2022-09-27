@@ -7,6 +7,8 @@ import '../booking/view_booking.dart';
 class QrScanScreen extends StatefulWidget {
   static const String id = 'qrscan-screen';
 
+
+
   @override
   State<QrScanScreen> createState() => _QrScanScreenState();
 }

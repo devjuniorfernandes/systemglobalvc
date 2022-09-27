@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return AdminScaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Pagina Inicial'),
+        title: const Text('Meus Agendamentos'),
         backgroundColor: kColorPrimary,
         elevation: 0,
         actions: const [
@@ -97,18 +97,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.all(12.0),
                   child: Row(
                     children: [
-                      const Text(
-                        'Meus Agendamento',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 22,
-                        ),
-                      ),
                       const Spacer(),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          primary: kColorPrimary,
+                          elevation: 0, backgroundColor: kColorPrimary,
                           minimumSize: const Size(
                             150,
                             50,
